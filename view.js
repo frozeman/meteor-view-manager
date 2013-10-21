@@ -25,14 +25,14 @@ Be aware that they can only be used inside a handlebars template like:
 /**
 Get the current template set in an `View` key and place it inside the current template.
 
-    {{Template "myTemplateKey"}}
+    {{DynamicTemplate "myTemplateKey"}}
 
 
-@method Template
+@method DynamicTemplate
 @param {String} keyName    The `View` key which holds a template
 @return {Object|undefined} The template to be placed inside the current template or undefined when no template was set to this key
 **/
-Handlebars.registerHelper('Template', function (keyName) {
+Handlebars.registerHelper('DynamicTemplate', function (keyName) {
     var template = View.get(keyName);
 
     if(_.isString(keyName) && View.getTemplateName(template)) {

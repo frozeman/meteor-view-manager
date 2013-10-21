@@ -12,7 +12,7 @@ The View manager helps to set views at specific locations in your app.
 
 Place a template helper for `myViewKey` somewhere in your app:
 
-    {{Template "myViewKey"}}
+    {{DynamicTemplate "myViewKey"}}
 
 To render a template in that place call
 

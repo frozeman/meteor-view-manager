@@ -3,7 +3,7 @@
   "description": "Works like Session made for rendering templates in place",
   "homepage": "http://frozeman.de/blog/2013/10/meteor-view-manager/",
   "author": "Fabian Vogelsteller (http://frozeman.de)",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "git": "https://github.com/frozeman/meteor-view-manager.git",
   "packages": {}
 }
