@@ -41,6 +41,19 @@ Handlebars.registerHelper('DynamicTemplate', function (keyName) {
 });
 
 
+/**
+Works like the {{> }} helper, but accepts also strings as paramter. This way you can name you templates like "/better/ordered/template".
+
+
+@method StaticTemplate
+@param {String} templateName    The template name
+@return {Object} The template to be placed inside the current template
+**/
+Handlebars.registerHelper('StaticTemplate', function (templateName) {
+    return View.getTemplate(templateName);
+});
+
+
 
 
 /**

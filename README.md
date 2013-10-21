@@ -30,3 +30,4 @@ Additional methods are:
     - getTemplate(name, data)   = Returns a template, useful inside template helpers, `name` can also be an object of {template: 'templateName', data: {...}}
     - getTemplateName(template) = Returns the given template name. also when passed an object like {template: 'templateName', data: {...}}. Mostly used internally
     - isTemplate(template)      = Returns a boolean, whether a template with that name exists or not.
+    - {{StaticTemplate}}        = Helper, which works like {{> ...}} but also accepts strings as template names e.g. {{StaticTemplate "/ordered/template"}}
