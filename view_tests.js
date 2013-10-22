@@ -111,26 +111,3 @@ Tinytest.add('view-manager package - equals() check if the value stored at the i
     // Cleanup
     delete View.store['testKey'];
 });
-
-
-Tinytest.addAsync('view-manager package - showSuccess() should show success popup for 1 second then disappear.', function(test, expect){
-
-    // First check the set function populates the correct data by checking key and value parameters
-    View.showSuccess();
-
-    test.instanceOf(View.deps['infoPopupContainer'], Deps.Dependency);
-    test.instanceOf(View.store['infoPopupContainer'], Object);
-
-    // Meteor then runs a timeout to set the store with the same key to FALSE after one second. Lets check and see if that worked.
-    Meteor.setTimeout(function(){
-        test.equal(View.store['infoPopupContainer'], false);
-
-
-        // Cleanup
-        delete View.deps['infoPopupContainer'];
-        delete View.store['infoPopupContainer'];
-
-        // Stop the test
-        expect();
-    }, 1001);
-});
