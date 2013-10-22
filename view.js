@@ -1,8 +1,8 @@
 /**
-View package for the TunedIn App.
+View package.
 
 The View session, for displaying views.
-This is taken from https://github.com/EventedMind/meteor-build-a-reactive-data-source
+This is based on https://github.com/EventedMind/meteor-build-a-reactive-data-source
 
 @module package view-manager
 **/

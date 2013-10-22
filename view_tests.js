@@ -134,38 +134,3 @@ Tinytest.addAsync('view-manager package - showSuccess() should show success popu
         expect();
     }, 1001);
 });
-
-Tinytest.add('view-manager package - showError() should set "infoPopupContainer" with an error message passed as a string', function(test){
-
-    // Running the function passing a string
-    View.showError('Error Message');
-
-    // Checking..
-    test.instanceOf(View.deps['infoPopupContainer'], Deps.Dependency);
-    test.equal(View.store['infoPopupContainer'].content, 'Error Message');
-
-    // Cleanup
-    delete View.deps['infoPopupContainer'];
-    delete View.store['infoPopupContainer'];
-});
-
-
-Tinytest.add('view-manager package - showError() should set "infoPopupContainer" with an error message passed as an API response.', function(test){
-
-    // Running the function passing a string
-    View.showError({
-        response: {
-            error: {
-                message: 'Some Text'
-            }
-        }
-    });
-
-    // Checking..
-    test.instanceOf(View.deps['infoPopupContainer'], Deps.Dependency);
-    test.equal(View.store['infoPopupContainer'].content, 'Some Text');
-
-    // Cleanup
-    delete View.deps['infoPopupContainer'];
-    delete View.store['infoPopupContainer'];
-});
