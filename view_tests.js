@@ -52,7 +52,7 @@ Tinytest.add('view-manager package - get() should return a set value.', function
 Tinytest.add('view-manager package - set() should call _ensureDeps function with defined key set.', function(test){
 
     // Call View.set('testKey') and test if View.deps['testKey'] is populated with Deps.Dependency
-    View.set('testKey', '<span>test</span>');
+    View.set('testKey', 'templateName');
     test.instanceOf(View.deps['testKey'], Deps.Dependency);
 
     // Cleanup

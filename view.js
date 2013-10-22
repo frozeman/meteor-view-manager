@@ -159,51 +159,17 @@ View = {
             }
         }
 
-    **When using 'popupContainer' as key**
-
-        {
-            template: 'someTemplate',
-            large: true,
-            data: {
-                key: 'dataValue'
-             }
-        }
-
-    **When using 'infoPopupContainer' key**
-
-        {
-            content: "text",
-            position: "top" | "bottom",
-            ok: function(){...} | true,
-            cancel: function(){...} | true,
-        }
-
-    **When using 'infoBoxContainer' as key**
-
-        {
-            content: "text" | {title: "Title", content: "Content"}
-            ok: function(){...} | true,
-            cancel: function(){...} | true,
-        }
-
     @return undefined
     **/
     set: function (key, value) {
         this._ensureDeps(key);
 
-
         // make sure if passed an object it has the right structure
         if(_.isObject(value) && !((value.template && value.data) || (value.content))) {
-            if(Debug)
-                Debug.console('View.set() needs an Object with at least a template and data property','error');
+            if(window.console)
+                console.warn('View.set() needs an Object with at least a template and data property');
 
             return;
-        }
-
-        // MAINPANE DEPENDENCY: make sure the mainPane2 is hidden, when mainPane1 changes
-        if(key === 'mainPane1') {
-            this.set('mainPane2', false);
-            this.set('popupContainer', false);
         }
 
         // only reload the dependencies, when value actually changed
