@@ -248,7 +248,7 @@ View = {
 
 
         if(Template[name.template]) {
-            return new Handlebars.SafeString(Template[name.template](data));
+            return Template[name.template].withData(data);
         }
         else
             return '';

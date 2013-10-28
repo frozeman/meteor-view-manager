@@ -3,8 +3,8 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-    api.use('handlebars', 'client');
     api.use('templating', 'client');
+    api.use('handlebars', 'client');
     api.use('underscore', 'client');
     api.use('deps', 'client');
 
