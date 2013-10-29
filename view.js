@@ -50,7 +50,7 @@ Works like the {{> }} helper, but accepts also strings as paramter. This way you
 @return {Object} The template to be placed inside the current template
 **/
 Handlebars.registerHelper('StaticTemplate', function (templateName) {
-    return View.getTemplate(templateName);
+    return View.getTemplate(templateName, this);
 });
 
 
@@ -66,7 +66,7 @@ View = {
     /**
     This object stores all keys and their values.
 
-    @property store
+    @property keys
     @type Object
     @default {}
     @example
@@ -77,7 +77,7 @@ View = {
         }
 
     **/
-    store: {},
+    keys: {},
 
 
     /**
@@ -135,7 +135,7 @@ View = {
     get: function (key) {
         this._ensureDeps(key);
         this.deps[key].depend();
-        return this.store[key];
+        return this.keys[key];
     },
 
 
@@ -173,8 +173,8 @@ View = {
         }
 
         // only reload the dependencies, when value actually changed
-        if((this.store[key] !== value)) {
-            this.store[key] = value;
+        if((this.keys[key] !== value)) {
+            this.keys[key] = value;
             this.deps[key].changed();
         }
     },
@@ -190,7 +190,7 @@ View = {
     **/
     setDefault: function (key, value) {
         this._ensureDeps(key);
-        this.store[key] = value;
+        this.keys[key] = value;
     },
 
 
@@ -205,7 +205,7 @@ View = {
     equals: function(key, value){
         // this._ensureDeps(key);
         // this.deps[key].depend();
-        return (this.store[key] === value) ? true : false;
+        return (this.keys[key] === value) ? true : false;
     },
 
 
@@ -231,6 +231,9 @@ View = {
         if(!name)
             return '';
 
+        // make sure the data object is not the window object
+        data = (data instanceof Window) ? {} : data;
+
         // check if "name" contains also the data
         if(_.isString(name)) {
             name = {
@@ -239,11 +242,19 @@ View = {
 
         // if object, use the data from the object
         } else if(_.isObject(name) && name.data) {
-            data = name.data;
+
+            // make sure the data object is not the window object
+            name.data = (data instanceof Window) ? {} : name.data;
+
+            // add the data object to the passed data object, of the template
+            if(_.isObject(data))
+                data = _.extend(data, name.data);
+            else
+                data = name.data;
         }
 
         // never set an undefined data
-        if(_.isUndefined(data))
+        if(!data)
             data = {};
 
 

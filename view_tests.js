@@ -4,7 +4,7 @@ Tinytest.add('view-manager package - store and deps properties should be present
 
     // Testing app initialisation with properties
     test.instanceOf(Layout, Object);
-    test.instanceOf(View.store, Object);
+    test.instanceOf(View.keys, Object);
     test.instanceOf(View.deps, Object);
 });
 
@@ -44,7 +44,7 @@ Tinytest.add('view-manager package - get() should return a set value.', function
     test.equal(View.get('testKey'), 'myValue');
 
     // Clean up
-    delete View.store['testKey'];
+    delete View.keys['testKey'];
     delete View.deps['testKey'];
 });
 
@@ -57,7 +57,7 @@ Tinytest.add('view-manager package - set() should call _ensureDeps function with
 
     // Cleanup
     delete View.deps['testKey'];
-    delete View.store['testKey'];
+    delete View.keys['testKey'];
 });
 
 
@@ -65,14 +65,14 @@ Tinytest.add('view-manager package - set() with "mainPane1" as the key param sho
 
     // Setting key to 'mainPane1'
     View.set('mainPane1', 'dummy');
-    test.equal(View.store['mainPane2'], false);
-    test.equal(View.store['popupContainer'], false);
-    test.equal(View.store['mainPane1'], 'dummy');
+    test.equal(View.keys['mainPane2'], false);
+    test.equal(View.keys['popupContainer'], false);
+    test.equal(View.keys['mainPane1'], 'dummy');
 
     // Cleanup
-    delete View.store['mainPane1'];
-    delete View.store['mainPane2'];
-    delete View.store['popupContainer'];
+    delete View.keys['mainPane1'];
+    delete View.keys['mainPane2'];
+    delete View.keys['popupContainer'];
     delete View.deps['mainPane1'];
 });
 
@@ -83,7 +83,7 @@ Tinytest.add('view-manager package - set() should reload dependencies on change.
 });
 
 
-Tinytest.add('view-manager package - setDefault() should set View.deps[key] with Deps.Dependency and set View.store[key] with a value.', function(test){
+Tinytest.add('view-manager package - setDefault() should set View.deps[key] with Deps.Dependency and set View.keys[key] with a value.', function(test){
 
     View.setDefault('testKey', 'dummy');
 
@@ -91,11 +91,11 @@ Tinytest.add('view-manager package - setDefault() should set View.deps[key] with
     test.instanceOf(View.deps['testKey'], Deps.Dependency);
 
     // Is this function storing the key correctly? Let's check that out too!
-    test.equal(View.store['testKey'], 'dummy');
+    test.equal(View.keys['testKey'], 'dummy');
 
     // Cleanup
     delete View.deps['testKey'];
-    delete View.store['testKey'];
+    delete View.keys['testKey'];
 });
 
 
@@ -109,5 +109,5 @@ Tinytest.add('view-manager package - equals() check if the value stored at the i
     test.equal(View.equals('testKey', 'anotherdummy'), false);
 
     // Cleanup
-    delete View.store['testKey'];
+    delete View.keys['testKey'];
 });
