@@ -165,9 +165,9 @@ View = {
         this._ensureDeps(key);
 
         // make sure if passed an object it has the right structure
-        if(_.isObject(value) && !((value.template && value.data) || (value.content))) {
+        if(_.isObject(value) && !(value.template || (value.content))) {
             if(window.console)
-                console.warn('View.set() needs an Object with at least a template and data property');
+                console.warn('View.set() needs an Object with at least a template property');
 
             return;
         }
