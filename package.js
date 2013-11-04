@@ -1,24 +1,18 @@
 Package.describe({
-    summary: "a View Manager, works like Session, with some extras"
+    summary: "Meteor wrapper package for https://github.com/serkanyersen/ifvisible.js/"
 });
 
 Package.on_use(function (api) {
-    api.use('templating', 'client');
-    api.use('underscore', 'client');
-    api.use('deps', 'client');
 
     // EXPORT
-    api.export('View');
+    api.export('ifvisible');
 
     // FILES
-    api.add_files('view.js', 'client');
+    api.add_files('lib/ifvisible.js/src/ifvisible.js', 'client');
 });
 
-Package.on_test(function (api) {
+// Package.on_test(function (api) {
 
-    api.use('view-manager');
-    api.use('tinytest');
+//     api.use('tinytest');
 
-    api.add_files('view_tests.js', 'client');
-
-});
+// });

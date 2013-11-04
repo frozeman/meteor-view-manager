@@ -1,9 +1,9 @@
 {
-  "name": "view-manager",
-  "description": "Works like Session made for rendering templates in place",
-  "homepage": "http://frozeman.de/blog/2013/10/meteor-view-manager/",
-  "author": "Fabian Vogelsteller (http://frozeman.de)",
-  "version": "0.0.8",
-  "git": "https://github.com/frozeman/meteor-view-manager.git",
+  "name": "ifvisible",
+  "description": "Meteor wrapper package for https://github.com/serkanyersen/ifvisible.js/ce",
+  "homepage": "https://github.com/serkanyersen/ifvisible.js/",
+  "author": "Serkan Yerşen (http://serkan.io)",
+  "version": "0.9.8",
+  "git": "https://github.com/frozeman/meteor-ifvisible.js.git",
   "packages": {}
 }
