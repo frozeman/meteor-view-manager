@@ -173,7 +173,8 @@ View = {
         }
 
         // only reload the dependencies, when value actually changed
-        if((this.keys[key] !== value)) {
+        if(((_.isString(value) || _.isBoolean(value)) && this.keys[key] !== value) ||
+           (_.isObject(value) && !_.isEqual(this.keys[key], value))) {
             this.keys[key] = value;
             this.deps[key].changed();
         }
@@ -211,6 +212,9 @@ View = {
 
     /**
     Get the templates.
+
+    **Note:** When both, a object with `template` and `data` context is passed and also an additonal data context using the `data` parameter.
+    Then both data objects will be combinded, where the data property from the template object overwrites the one given in the `data` parameter.
 
 
     @method getTemplate

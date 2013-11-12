@@ -1,9 +1,9 @@
 "use strict";
 
-Tinytest.add('view-manager package - store and deps properties should be present.', function(test){
+Tinytest.add('view-manager package - keys and deps properties should be present.', function(test){
 
     // Testing app initialisation with properties
-    test.instanceOf(Layout, Object);
+    test.instanceOf(View, Object);
     test.instanceOf(View.keys, Object);
     test.instanceOf(View.deps, Object);
 });
@@ -61,19 +61,34 @@ Tinytest.add('view-manager package - set() should call _ensureDeps function with
 });
 
 
-Tinytest.add('view-manager package - set() with "mainPane1" as the key param should set the keys "mainPane2" and "popupContainer" to FALSE".', function(test){
+Tinytest.addAsync('view-manager package - set() should not rerun dependencies, when the value didn\'t change.', function(test, expect){
+    var testValue = false;
 
-    // Setting key to 'mainPane1'
-    View.set('mainPane1', 'dummy');
-    test.equal(View.keys['mainPane2'], false);
-    test.equal(View.keys['popupContainer'], false);
-    test.equal(View.keys['mainPane1'], 'dummy');
+    View.setDefault('myTest', 'dummy');
+
+
+    Deps.autorun(function(c){
+        View.get('myTest');
+
+        if(!c.firstRun)
+            testValue = true;
+
+        c.stop();
+    });
+
+    // set the same value again
+    View.set('myTest', 'dummy');
+
+    Meteor.defer(function(){
+        test.isFalse(testValue);
+
+        expect();
+    });
+
 
     // Cleanup
-    delete View.keys['mainPane1'];
-    delete View.keys['mainPane2'];
-    delete View.keys['popupContainer'];
-    delete View.deps['mainPane1'];
+    delete View.keys['myTest'];
+    delete View.deps['myTest'];
 });
 
 
