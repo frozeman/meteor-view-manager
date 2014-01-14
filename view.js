@@ -36,7 +36,7 @@ Handlebars.registerHelper('DynamicTemplate', function (keyName) {
     var template = View.get(keyName);
 
     if(_.isString(keyName) && View.getTemplateName(template)) {
-        return View.getTemplate(template);
+        return View.getTemplate(template, this);
     }
 });
 
