@@ -263,7 +263,7 @@ View = {
 
 
         if(Template[name.template]) {
-            return Template[name.template].withData(data);
+            return Template[name.template].extend({ data: data });
         }
         else
             return '';
