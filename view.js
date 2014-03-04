@@ -25,33 +25,34 @@ Be aware that they can only be used inside a handlebars template like:
 /**
 Get the current template set in an `View` key and place it inside the current template.
 
-    {{DynamicTemplate "myTemplateKey"}}
+    {{> DynamicTemplate placeholder="myTemplateKey"}}
 
 
 @method DynamicTemplate
-@param {String} keyName    The `View` key which holds a template
 @return {Object|undefined} The template to be placed inside the current template or undefined when no template was set to this key
 **/
-Handlebars.registerHelper('DynamicTemplate', function (keyName) {
-    var template = View.get(keyName);
+UI.body.DynamicTemplate = function () {
+    var template = View.get(this.placeholder);
 
-    if(_.isString(keyName) && View.getTemplateName(template)) {
-        return View.getTemplate(template, this);
-    }
-});
+    if(View.getTemplateName(template)) {
+        return View.getTemplate(template);
+    } else
+        return null;
+};
 
 
 /**
-Works like the {{> }} helper, but accepts also strings as paramter. This way you can name you templates like "/better/ordered/template".
+Works like the {{> }} helper, but accepts also strings as paramter.
+This way you can name you templates like "/better/ordered/template" or pass template names via variables.
 
+    {{> StaticTemplate template="myTemplateKey"}}
 
 @method StaticTemplate
-@param {String} templateName    The template name
 @return {Object} The template to be placed inside the current template
 **/
-Handlebars.registerHelper('StaticTemplate', function (templateName) {
-    return View.getTemplate(templateName, this);
-});
+UI.body.StaticTemplate = function () {
+    return View.getTemplate(this.template);
+};
 
 
 
@@ -263,10 +264,9 @@ View = {
 
 
         if(Template[name.template]) {
-            return Template[name.template].withData(data);
-        }
-        else
-            return '';
+            return (_.isEmpty(data)) ? Template[name.template] : Template[name.template].extend({data: data});
+        } else
+            return null;
     },
 
 
