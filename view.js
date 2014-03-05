@@ -25,7 +25,7 @@ Be aware that they can only be used inside a handlebars template like:
 /**
 Get the current template set in an `View` key and place it inside the current template.
 
-    {{> DynamicTemplate placeholder="myTemplateKey"}}
+    {{> DynamicTemplate placeholder="myTemplateKey" context=someData}}
 
 
 @method DynamicTemplate
@@ -35,7 +35,7 @@ UI.body.DynamicTemplate = function () {
     var template = View.get(this.placeholder);
 
     if(View.getTemplateName(template)) {
-        return View.getTemplate(template);
+        return View.getTemplate(template, this.context);
     } else
         return null;
 };
@@ -45,13 +45,13 @@ UI.body.DynamicTemplate = function () {
 Works like the {{> }} helper, but accepts also strings as paramter.
 This way you can name you templates like "/better/ordered/template" or pass template names via variables.
 
-    {{> StaticTemplate template="myTemplateKey"}}
+    {{> StaticTemplate template="myTemplateKey" context=someData}}
 
 @method StaticTemplate
 @return {Object} The template to be placed inside the current template
 **/
 UI.body.StaticTemplate = function () {
-    return View.getTemplate(this.template);
+    return View.getTemplate(this.template, this.context);
 };
 
 
@@ -127,7 +127,7 @@ View = {
 
         {
             template: "templateName",
-            data: {
+            context: {
                 key: "value"
             }
         }
@@ -155,7 +155,7 @@ View = {
 
         {
             template: 'templateName',
-            data: {
+            context: {
                 key: 'value'
             }
         }
@@ -214,8 +214,8 @@ View = {
     /**
     Get the templates.
 
-    **Note:** When both, a object with `template` and `data` context is passed and also an additonal data context using the `data` parameter.
-    Then both data objects will be combinded, where the data property from the template object overwrites the one given in the `data` parameter.
+    **Note:** When both, a object with `template` and `context` is passed and also an additonal data context using the `data` parameter.
+    Then both context objects will be combinded, where the context property from the template object overwrites the one given in the `data` parameter.
 
 
     @method getTemplate
@@ -223,48 +223,48 @@ View = {
 
         {
             template: 'xyz',
-            data: {
+            context: {
                 key: 'value'
             }
         }
 
-    @param {Object} data   The data context to pass to that template
+    @param {Object} context   The data context to pass to that template
     @return {Object|Empty String} Template instance for use in a template helpers return value
     **/
-    getTemplate: function(name, data) {
+    getTemplate: function(name, context) {
 
         if(!name)
             return '';
 
-        // make sure the data object is not the window object
-        data = (data instanceof Window) ? {} : data;
+        // make sure the context object is not the window object
+        context = (context instanceof Window) ? {} : context;
 
-        // check if "name" contains also the data
+        // check if "name" contains also the context
         if(_.isString(name)) {
             name = {
                 template: name
             }
 
-        // if object, use the data from the object
-        } else if(_.isObject(name) && name.data) {
+        // if object, use the context from the object
+        } else if(_.isObject(name) && name.context) {
 
-            // make sure the data object is not the window object
-            name.data = (data instanceof Window) ? {} : name.data;
+            // make sure the context object is not the window object
+            name.context = (context instanceof Window) ? {} : name.context;
 
-            // add the data object to the passed data object, of the template
-            if(_.isObject(data))
-                data = _.extend(data, name.data);
+            // add the context object to the passed context object, of the template
+            if(_.isObject(context))
+                context = _.extend(context, name.context);
             else
-                data = name.data;
+                context = name.context;
         }
 
-        // never set an undefined data
-        if(!data)
-            data = {};
+        // never set an undefined context
+        if(!context)
+            context = {};
 
 
         if(Template[name.template]) {
-            return (_.isEmpty(data)) ? Template[name.template] : Template[name.template].extend({data: data});
+            return (_.isEmpty(context)) ? Template[name.template] : Template[name.template].extend({data: context});
         } else
             return null;
     },
@@ -278,7 +278,7 @@ View = {
 
         {
             template: 'xyz',
-            data: {
+            context: {
                 key: 'value'
             }
         }
@@ -298,7 +298,7 @@ View = {
 
         {
             template: 'xyz',
-            data: {
+            context: {
                 key: 'value'
             }
         }
