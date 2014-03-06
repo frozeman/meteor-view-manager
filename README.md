@@ -19,6 +19,7 @@ To render a template in that place call
     View.set('myViewKey', 'myTemplate');
     
 Additional you can set the data context dynamically
+This context will then be merged with the context passed in template (dynamic content overwrites template set context)
 
     View.set('myViewKey', {
         tenplate: 'myTemplate',
