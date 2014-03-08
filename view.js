@@ -31,11 +31,10 @@ Get the current template set in an `View` key and place it inside the current te
 @method DynamicTemplate
 @return {Object|undefined} The template to be placed inside the current template or undefined when no template was set to this key
 **/
-UI.body.DynamicTemplate = function () {
+Template['DynamicTemplate'].getTemplate = function () {
     var template = View.get(this.placeholder);
-
-    if(View.getTemplateName(template)) {
-        return View.getTemplate(template, this.context);
+    if(template && View.getTemplateName(template)) {
+        return View.getTemplate(template, this.context, true);
     } else
         return null;
 };
@@ -229,9 +228,10 @@ View = {
         }
 
     @param {Object} context   The data context to pass to that template
+    @param {Boolean} returnObject whether to return an object or a template
     @return {Object|Empty String} Template instance for use in a template helpers return value
     **/
-    getTemplate: function(name, context) {
+    getTemplate: function(name, context, returnObject) {
 
         if(!name)
             return '';
@@ -264,7 +264,16 @@ View = {
 
 
         if(Template[name.template]) {
-            return (_.isEmpty(context)) ? Template[name.template] : Template[name.template].extend({data: context});
+            if(returnObject) {
+                return {
+                    template: Template[name.template],
+                    context: context
+                };
+            } else {
+                return (_.isEmpty(context))
+                    ? Template[name.template]
+                    : Template[name.template].extend({data: context});
+            }
         } else
             return null;
     },

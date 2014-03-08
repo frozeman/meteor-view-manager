@@ -11,6 +11,7 @@ Package.on_use(function (api) {
     api.export('View');
 
     // FILES
+    api.add_files('dynamicTemplate.html', 'client');
     api.add_files('view.js', 'client');
 });
 
