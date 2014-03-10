@@ -1,0 +1,15 @@
+<template name="DynamicTemplate">
+	{{#with getTemplate}}	
+		{{#with context}}
+			{{> ../template}}
+		{{/with}}
+	{{/with}}
+</template>
+
+<template name="StaticTemplate">
+	{{#with getTemplate}}	
+		{{#with context}}
+			{{> ../template}}
+		{{/with}}
+	{{/with}}
+</template>
