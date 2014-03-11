@@ -9,7 +9,7 @@ This is based on https://github.com/EventedMind/meteor-build-a-reactive-data-sou
 
 
 /**
-The reactive View class is used to set and get the views of the app.
+The reactive View class is used to set and get the views of a app.
 
 Be aware that they can only be used inside a handlebars template like:
 
