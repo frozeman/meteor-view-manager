@@ -320,9 +320,10 @@ View = {
     isTemplate: function(template) {
         if(_.isObject(template) && template.template) {
             return (Template[template.template]) ? true : false;
-        } else {
+        } else if(_.isString(template)) {
             return (Template[template]) ? true : false;
-        }
+        } else
+            return false;
     }
 
 };
