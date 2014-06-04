@@ -240,7 +240,7 @@ View = {
             return '';
 
         // make sure the context object is not the window object
-        context = (context instanceof Window) ? {} : context;
+        context = (context === window) ? {} : context;
 
         // check if "name" contains also the context
         if(_.isString(name)) {
@@ -252,7 +252,7 @@ View = {
         } else if(_.isObject(name) && name.context) {
 
             // make sure the context object is not the window object
-            name.context = (context instanceof Window) ? {} : name.context;
+            name.context = (context === window) ? {} : name.context;
 
             // add the context object to the passed context object, of the template
             if(_.isObject(context))
